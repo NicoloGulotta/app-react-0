@@ -1,0 +1,13 @@
+.title-book{
+    color: antiquewhite;
+}
+.book-cover{
+    z-index: 1;
+    transition: all 0.2s linear;
+}
+.book-cover:hover {
+border-radius: 8px;
+transform: scale(1.1);
+box-shadow: 30%;
+z-index: 5;
+}

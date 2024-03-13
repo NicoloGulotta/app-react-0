@@ -3,11 +3,11 @@ import { Navbar, Nav, Container } from 'react-bootstrap'
 const MyNav = () => (
   <Navbar
     expand="lg"
-    className="bg-body-tertiary mb-3"
-    bg="dark"
-    data-bs-theme="dark"
+    cla-bs-theme="dark"
   >
-    <Container fluid>
+    <ContainssName="bg-body-tertiary mb-3"
+    bg="dark"
+    dataer fluid>
       <Navbar.Brand href="#">Books</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
