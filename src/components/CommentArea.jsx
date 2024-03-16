@@ -4,11 +4,11 @@ import { Form, Button, ListGroup } from "react-bootstrap";
 function CommentArea(props) {
   const { cardId } = props;
   const [inputValue, setInputValue] = useState("");
-  const [rating, setRating] = useState(0); // Stato per salvare la valutazione
-  const [comments, setComments] = useState({});
+  const [rating, setRating] = useState(0);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    const savedComments = JSON.parse(localStorage.getItem("comments") || "{}");
+    const savedComments = JSON.parse(localStorage.getItem("comments") || "[]");
     setComments(savedComments);
   }, []);
 
@@ -18,24 +18,23 @@ function CommentArea(props) {
 
   const handleAddComment = () => {
     if (inputValue.trim() !== "") {
-      const updatedComments = { ...comments };
-      updatedComments[cardId] = updatedComments[cardId] || [];
-      updatedComments[cardId].push({ text: inputValue, rating: rating }); // Salva il commento e la valutazione
-      setComments(updatedComments);
+      const newComment = { text: inputValue, rating: rating };
+      setComments([...comments, newComment]);
       setInputValue("");
-      setRating(0); // Resettiamo la valutazione dopo aver aggiunto il commento
+      setRating(0);
     }
   };
 
   const handleRatingChange = (e) => {
-    setRating(parseInt(e.target.value)); // Imposta il valore della valutazione quando cambia
+    setRating(parseInt(e.target.value));
   };
 
   const handleRemoveComment = (index) => {
-    const updatedComments = { ...comments };
-    updatedComments[cardId].splice(index, 1);
+    const updatedComments = [...comments];
+    updatedComments.splice(index, 1);
     setComments(updatedComments);
   };
+
 
   return (
     <div className="inputComment">
@@ -43,6 +42,8 @@ function CommentArea(props) {
         <Form.Control
           type="text"
           value={inputValue}
+          style={{ width: "auto"}}
+        
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Lascia un commento..."
         />
@@ -52,11 +53,12 @@ function CommentArea(props) {
             <Form.Check
               key={value}
               inline
+              className="m-1"
               label={value}
               type="radio"
               name="rating"
               value={value}
-              checked={rating === value} // Controlla se il pulsante radio è selezionato
+              checked={rating === value}
               onChange={handleRatingChange}
             />
           ))}
@@ -66,12 +68,14 @@ function CommentArea(props) {
         Aggiungi
       </Button>
       <ListGroup className="mt-3">
-        {comments[cardId] && comments[cardId].map((comment, index) => (
+        {comments.map((comment, index) => (
           <ListGroup.Item key={index} className="d-flex justify-content-between">
             {comment.text} - Valutazione: {comment.rating}
-            <Button variant="danger" onClick={() => handleRemoveComment(index)}>
-              Elimina
-            </Button>
+            <div>
+              <Button variant="danger" className="py-1" onClick={() => handleRemoveComment(index)}>
+                X
+              </Button>
+            </div>
           </ListGroup.Item>
         ))}
       </ListGroup>
