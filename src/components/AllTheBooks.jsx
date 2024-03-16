@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Col, Row, Spinner } from "react-bootstrap"; // Importa Spinner
 import scifi from "../data/scifi.json";
 import SingleBook from "./SingleBook";
-
+import './AllTheBooks.css'
 const AllTheBooks = () => {
   const [bookList, setBookList] = useState([]);
   const [loading, setLoading] = useState(true);
