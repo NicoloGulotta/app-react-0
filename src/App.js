@@ -4,15 +4,15 @@ import { Container } from 'react-bootstrap';
 import MyNav from './components/MyNav';
 import MyFooter from './components/MyFooter';
 import AllTheBooks from './components/AllTheBooks'; 
-// import NameForm from './components/NameForm'; 
+import SearchBar from './components/SearchBar';
 
 function App() {
   return (
     <>
       <MyNav />
+      <SearchBar/>
       <Container>
         <AllTheBooks />
-        {/* <NameForm /> */}
       </Container>
       <MyFooter />
     </>

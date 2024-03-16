@@ -3,11 +3,8 @@
 }
 .book-cover{
     z-index: 1;
-    transition: all 0.2s linear;
+    transition: all 0.5s ease-in-out;
 }
 .book-cover:hover {
-border-radius: 8px;
 transform: scale(1.1);
-box-shadow: 30%;
-z-index: 5;
-}
+box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;}

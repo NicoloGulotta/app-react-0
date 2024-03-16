@@ -1,58 +1,34 @@
-import React, { useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Col, Row, Spinner } from "react-bootstrap"; // Importa Spinner
 import scifi from "../data/scifi.json";
-import "./AllTheBooks.css";
+import SingleBook from "./SingleBook";
 
 const AllTheBooks = () => {
-  const [inputName, setInputName] = useState("");
   const [bookList, setBookList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  async function getBook(name) {
-    try {
-      const response = await fetch("./scfi.json");
-      if (response.ok) {
-        const result = await response.json();
-        setBookList((prev) => [...prev, result]);
-        console.log(result);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  function removeBook(name) {
-    const filteredList = bookList.filter((el) => el.name !== name);
-    setBookList(filteredList);
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      setBookList(scifi);
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   return (
     <>
-      <div className="input-with-button-container">
-        <input
-          className="text-input"
-          type="text"
-          placeholder="Search.."
-          value={inputName}
-          onChange={(e) => setInputName(e.target.value)}
-        />
-        <button className="add-button" onClick={() => getBook(inputName)}>
-          Cerca{" "}
-        </button>
-      </div>
-      <Row className="g-2">
-        {scifi.map((book) => {
-          return (
-            <Col xs={6} md={4} key={book.asin}>
-              <Card className="book-cover  d-flex flex-column">
-                <Card.Img className="img-book" variant="top" src={book.img} />
-                <Card.Body>
-                  <Card.Title className="title-book">{book.title}</Card.Title>
-                </Card.Body>
-              </Card>
+      {loading ? (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden bg-dark ">Loading...</span>
+        </Spinner>
+      ) : (
+        <Row className="g-2">
+          {bookList.map((book, index) => (
+            <Col xs={6} md={2} key={index}>
+              <SingleBook book={book} />
             </Col>
-          );
-        })}
-      </Row>
+          ))}
+        </Row>
+      )}
     </>
   );
 };

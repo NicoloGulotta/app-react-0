@@ -1,5 +1,5 @@
 const MyFooter = () => (
-  <footer className="d-flex mt-2">
+  <footer className="d-flex mt-2 bg-dark">
     <span className="text-white m-auto p-2">
       <strong>Nicolò Gulotta</strong> - {new Date().getFullYear()}
     </span>
