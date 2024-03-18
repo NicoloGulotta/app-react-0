@@ -8,18 +8,20 @@ function CommentArea(props) {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    const savedComments = JSON.parse(localStorage.getItem("comments") || "[]");
+    const savedComments = JSON.parse(localStorage.getItem(`comments_${cardId}`) || "[]");
     setComments(savedComments);
-  }, []);
+  }, [cardId]);
 
-  useEffect(() => {
-    localStorage.setItem("comments", JSON.stringify(comments));
-  }, [comments]);
+  const saveCommentsToLocalStorage = (comments) => {
+    localStorage.setItem(`comments_${cardId}`, JSON.stringify(comments));
+  };
 
   const handleAddComment = () => {
     if (inputValue.trim() !== "") {
       const newComment = { text: inputValue, rating: rating };
-      setComments([...comments, newComment]);
+      const updatedComments = [...comments, newComment];
+      setComments(updatedComments);
+      saveCommentsToLocalStorage(updatedComments);
       setInputValue("");
       setRating(0);
     }
@@ -33,8 +35,8 @@ function CommentArea(props) {
     const updatedComments = [...comments];
     updatedComments.splice(index, 1);
     setComments(updatedComments);
+    saveCommentsToLocalStorage(updatedComments);
   };
-
 
   return (
     <div className="inputComment">
@@ -43,7 +45,6 @@ function CommentArea(props) {
           type="text"
           value={inputValue}
           style={{ width: "auto"}}
-        
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Lascia un commento..."
         />

@@ -21,10 +21,10 @@ const AllTheBooks = () => {
           <span className="visually-hidden bg-dark ">Loading...</span>
         </Spinner>
       ) : (
-        <Row className="g-2">
+        <Row className="g-1">
           {bookList.map((book, index) => (
             <Col xs={6} md={3} key={index}>
-              <SingleBook book={book} />
+              <SingleBook book={book} id={book.asin}/>
             </Col>
           ))}
         </Row>

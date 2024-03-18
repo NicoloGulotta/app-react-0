@@ -3,15 +3,19 @@ import { Card } from "react-bootstrap";
 import CommentArea from "./CommentArea";
 
 function SingleBook(props) {
-  const { book } = props;
+  const { book, id } = props;
   const [isSelected, setIsSelected] = useState(false);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState({});
 
   const handleCardClick = () => {
     setIsSelected(!isSelected);
   };
+
   const addComment = (newComment) => {
-    setComments([...comments, newComment]);
+    setComments({
+      ...comments,
+      [id]: [...(comments[id] || []), newComment] 
+    });
   };
 
   return (
@@ -30,7 +34,7 @@ function SingleBook(props) {
           </Card.Title>
         </Card.Body>
       </Card>
-      {isSelected && <CommentArea onAddComment={addComment} />}
+      {isSelected && <CommentArea cardId={id} comments={comments[id] || []} onAddComment={addComment} />}
     </div>
   );
 }
