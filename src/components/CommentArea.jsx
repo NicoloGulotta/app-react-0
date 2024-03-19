@@ -1,87 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, ListGroup } from "react-bootstrap";
+import React, { useEffect, useState } from 'react';
+import { AddComment } from "module";
 
-function CommentArea(props) {
-  const { cardId } = props;
-  const [inputValue, setInputValue] = useState("");
-  const [rating, setRating] = useState(0);
+const CommentArea = ({ asin }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    const savedComments = JSON.parse(localStorage.getItem(`comments_${cardId}`) || "[]");
-    setComments(savedComments);
-  }, [cardId]);
+    const getComments = async () => {
+      try {
+        const response = await fetch(
+          `https://striveschool-api.herokuapp.com/api/comments/${asin}`,
+          {
+            headers: {
+              Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQzY2RmYjI0ZjYwNTAwMTkzN2Q1MTYiLCJpYXQiOjE3MTA4Nzc5NzIsImV4cCI6MTcxMjA4NzU3Mn0.BiLYHCZJFB8rBCAzRrTUgk2mPwrrzXc5ZQ6BURct-hA',
+            },
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setComments(data);
+        } else {
+          console.error('Error fetching comments:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    };
 
-  const saveCommentsToLocalStorage = (comments) => {
-    localStorage.setItem(`comments_${cardId}`, JSON.stringify(comments));
-  };
-
-  const handleAddComment = () => {
-    if (inputValue.trim() !== "") {
-      const newComment = { text: inputValue, rating: rating };
-      const updatedComments = [...comments, newComment];
-      setComments(updatedComments);
-      saveCommentsToLocalStorage(updatedComments);
-      setInputValue("");
-      setRating(0);
+    if (asin) {
+      getComments();
     }
-  };
-
-  const handleRatingChange = (e) => {
-    setRating(parseInt(e.target.value));
-  };
-
-  const handleRemoveComment = (index) => {
-    const updatedComments = [...comments];
-    updatedComments.splice(index, 1);
-    setComments(updatedComments);
-    saveCommentsToLocalStorage(updatedComments);
-  };
+  }, [asin]);
 
   return (
-    <div className="inputComment">
-      <Form.Group className="mb-3">
-        <Form.Control
-          type="text"
-          value={inputValue}
-          style={{ width: "auto"}}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Lascia un commento..."
-        />
-        <Form.Label>Valuta:</Form.Label>
-        <div className="mb-3">
-          {[1, 2, 3, 4, 5].map((value) => (
-            <Form.Check
-              key={value}
-              inline
-              className="m-1"
-              label={value}
-              type="radio"
-              name="rating"
-              value={value}
-              checked={rating === value}
-              onChange={handleRatingChange}
-            />
-          ))}
-        </div>
-      </Form.Group>
-      <Button variant="dark" onClick={handleAddComment}>
-        Aggiungi
-      </Button>
-      <ListGroup className="mt-3">
-        {comments.map((comment, index) => (
-          <ListGroup.Item key={index} className="d-flex justify-content-between">
-            {comment.text} - Valutazione: {comment.rating}
-            <div>
-              <Button variant="danger" className="py-1" onClick={() => handleRemoveComment(index)}>
-                X
-              </Button>
-            </div>
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+    <div className="text-center">
+      <AddComment asin={asin} />
+      <CommentList commentsToShow={comments} />
     </div>
   );
-}
+};
 
 export default CommentArea;

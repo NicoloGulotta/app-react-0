@@ -23,7 +23,7 @@ const AllTheBooks = () => {
       ) : (
         <Row className="g-1">
           {bookList.map((book, index) => (
-            <Col xs={6} md={3} key={index}>
+            <Col xs={6} md={4} key={index}>
               <SingleBook book={book} id={book.asin}/>
             </Col>
           ))}
