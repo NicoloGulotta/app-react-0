@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { AddComment } from "module";
-
+import { AddComment } from './AddComment';
+import { CommentList } from './CommentList';
 const CommentArea = ({ asin }) => {
   const [comments, setComments] = useState([]);
 

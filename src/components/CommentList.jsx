@@ -1,5 +1,6 @@
-import { ListGroup } from 'react-bootstrap'
-import SingleComment from './SingleComment'
+import React from 'react';
+import { ListGroup } from 'react-bootstrap';
+import SingleComment from './SingleComment';
 
 const CommentList = ({ commentsToShow }) => (
   <ListGroup style={{ color: 'black' }} className="mt-2">
@@ -7,6 +8,6 @@ const CommentList = ({ commentsToShow }) => (
       <SingleComment comment={comment} key={comment._id} />
     ))}
   </ListGroup>
-)
+);
 
-export default CommentList
+export default CommentList;
