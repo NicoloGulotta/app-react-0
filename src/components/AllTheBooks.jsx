@@ -1,37 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { Col, Row, Spinner } from "react-bootstrap";
-import scifi from "../data/scifi.json";
-import SingleBook from "./SingleBook";
-import "./AllTheBooks.css";
+import { useState } from 'react'
+import { Col, Row, Form } from 'react-bootstrap'
+import fantasy from '../data/fantasy.json'
+import SingleBook from './SingleBook'
 
 const AllTheBooks = () => {
-  const [bookList, setBookList] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setBookList(scifi);
-      setLoading(false);
-    }, 1000);
-  }, []);
+  const [searchQuery, setSearchQuery] = useState('')
 
   return (
     <>
-      {loading ? (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden bg-dark ">Loading...</span>
-        </Spinner>
-      ) : (
-        <Row className="g-1">
-          {bookList.map((book, index) => (
-            <Col xs={6} md={4} key={index}>
-              <SingleBook book={book} id={book.asin} />
-            </Col>
-          ))}
-        </Row>
-      )}
+      <Row className="justify-content-center mt-5">
+        <Col xs={12} md={4} className="text-center">
+          <Form.Group>
+            <Form.Control
+              type="search"
+              placeholder="Cerca un libro"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row className="g-2 mt-3">
+        {fantasy
+          .filter((b) => b.title.toLowerCase().includes(searchQuery))
+          .map((book) => {
+            return (
+              <Col xs={12} md={4} key={book.asin}>
+                <SingleBook book={book} />
+              </Col>
+            )
+          })}
+      </Row>
     </>
-  );
-};
+  )
+}
 
-export default AllTheBooks;
+export default AllTheBooks

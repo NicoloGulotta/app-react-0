@@ -1,42 +1,24 @@
-import React, { useState } from "react";
-import { Card } from "react-bootstrap";
-import CommentArea from "./CommentArea";
+import { useState } from 'react'
+import { Card } from 'react-bootstrap'
+import CommentArea from './CommentArea'
 
-function SingleBook(props) {
-  const { book, id } = props;
-  const [isSelected, setIsSelected] = useState(false);
-  const [comments, setComments] = useState({});
-
-  const handleCardClick = () => {
-    setIsSelected(!isSelected);
-  };
-
-  const addComment = (newComment) => {
-    setComments({
-      ...comments,
-      [id]: [...(comments[id] || []), newComment] 
-    });
-  };
+const SingleBook = ({ book }) => {
+  const [selected, setSelected] = useState(false)
 
   return (
-    <div>
+    <>
       <Card
-        style={{ width: "200px", height: "400px" }}
-        className={`book-cover bg-dark m-1 d-flex flex-column ${
-          isSelected ? "border-4 border-danger" : ""
-        }`}
-        onClick={handleCardClick}
+        onClick={() => setSelected(!selected)}
+        style={{ border: selected ? '3px solid red' : 'none' }}
       >
-        <Card.Img className="img-book" variant="top" src={book.img} />
-        <Card.Body className="p-1">
-          <Card.Title className="title-book text-light fs-6">
-            {book.title}
-          </Card.Title>
+        <Card.Img variant="top" src={book.img} />
+        <Card.Body>
+          <Card.Title style={{ color: 'black' }}>{book.title}</Card.Title>
         </Card.Body>
       </Card>
-      {isSelected && <CommentArea cardId={id} comments={comments[id] || []} onAddComment={addComment} />}
-    </div>
-  );
+      {selected && <CommentArea asin={book.asin} />}
+    </>
+  )
 }
 
-export default SingleBook;
+export default SingleBook

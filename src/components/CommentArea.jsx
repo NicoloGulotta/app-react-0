@@ -1,44 +1,45 @@
-import React, { useEffect, useState } from "react";
-import AddComment from "./AddComment";
-import CommentList from "./CommentList";
+import { useEffect, useState } from 'react'
+import CommentList from './CommentList'
+import AddComment from './AddComment'
+
 
 const CommentArea = ({ asin }) => {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([])
+
 
   useEffect(() => {
-    const getComments = async (asin) => {
+    const getComments = async () => {
       try {
-        const response = await fetch(
-          `https://striveschool-api.herokuapp.com/api/comments/` + asin,
+        let response = await fetch(
+          'https://striveschool-api.herokuapp.com/api/comments/' + asin,
           {
             headers: {
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWZjMDA5NTYzYTljNjAwMTk0YWU5MTQiLCJpYXQiOjE3MTEwMTQwMzcsImV4cCI6MTcxMjIyMzYzN30.CsIhyLYLHizhq1I4mPI5xYUWfAmoropFwqqjJCejh3o",
+              Authorization: 'Bearer inserisci-qui-il-tuo-token',
             },
           }
-        );
+        )
+        console.log(response)
         if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setComments(data);
+          let comments = await response.json()
+          setComments(comments)
         } else {
-          console.error("Error fetching comments:", response.statusText);
+          console.log('error')
         }
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        console.log(error)
       }
-    };
-
-    if (asin) {
-      getComments();
     }
-  }, [asin]);
+    if (asin) {
+      getComments()
+    }
+  }, [asin])
 
   return (
     <div className="text-center">
       <AddComment asin={asin} />
       <CommentList commentsToShow={comments} />
     </div>
-  );
-};
-export default CommentArea;
+  )
+}
+
+export default CommentArea
