@@ -6,9 +6,15 @@ import MyFooter from './components/MyFooter';
 import AllTheBooks from './components/AllTheBooks';
 
 function App() {
+  const handleSearch = (searchTerm) => {
+    const filteredBooks = scifi.filter((book) =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setBookList(filteredBooks);
+  };
   return (
     <>
-      <MyNav />
+      <MyNav onSearch={handleSearch} />
       <Container>
         <AllTheBooks />
       </Container>

@@ -6,8 +6,8 @@ function MyNav(props) {
   const [inputName, setInputName] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Impedisce il comportamento predefinito del modulo
-    onSearch(inputName); // Chiama la funzione onSearch passando il valore di inputName
+    e.preventDefault();
+    onSearch(inputName);
   };
 
   return (

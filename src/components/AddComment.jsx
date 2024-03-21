@@ -19,7 +19,7 @@ const AddComment = ({ asin }) => {
     e.preventDefault();
     try {
       let response = await fetch(
-        'https://striveschool-api.herokuapp.com/api/comments',
+        `https://striveschool-api.herokuapp.com/api/comments/${asin}`,
         {
           method: 'POST',
           body: JSON.stringify(comment),
@@ -45,11 +45,12 @@ const AddComment = ({ asin }) => {
   };
 
   return (
-    <div className="my-3">
+    <div className="my-3 d-flex ">
       <Form onSubmit={sendComment}>
-        <Form.Group className="mb-2">
+        <Form.Group className="mb-2 ">
           <Form.Label>Recensione</Form.Label>
           <Form.Control
+          className='d-flex'
             type="text"
             placeholder="Inserisci qui il testo"
             value={comment.comment}
