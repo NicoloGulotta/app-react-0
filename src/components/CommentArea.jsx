@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import AddComment  from "./AddComment";
-import CommentList  from "./CommentList";
+import AddComment from "./AddComment";
+import CommentList from "./CommentList";
+
 const CommentArea = ({ asin }) => {
   const [comments, setComments] = useState([]);
 
@@ -8,11 +9,11 @@ const CommentArea = ({ asin }) => {
     const getComments = async (asin) => {
       try {
         const response = await fetch(
-          `https://striveschool-api.herokuapp.com/api/comments/${asin}`,
+          `https://striveschool-api.herokuapp.com/api/comments/` + asin,
           {
             headers: {
               Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQzY2RmYjI0ZjYwNTAwMTkzN2Q1MTYiLCJpYXQiOjE3MTA4Nzc5NzIsImV4cCI6MTcxMjA4NzU3Mn0.BiLYHCZJFB8rBCAzRrTUgk2mPwrrzXc5ZQ6BURct-hA",
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWZjMDA5NTYzYTljNjAwMTk0YWU5MTQiLCJpYXQiOjE3MTEwMTQwMzcsImV4cCI6MTcxMjIyMzYzN30.CsIhyLYLHizhq1I4mPI5xYUWfAmoropFwqqjJCejh3o",
             },
           }
         );

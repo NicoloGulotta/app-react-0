@@ -19,7 +19,7 @@ const AddComment = ({ asin }) => {
     e.preventDefault();
     try {
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/comments/${asin}`,
+        'https://striveschool-api.herokuapp.com/api/comments/',
         {
           method: 'POST',
           body: JSON.stringify(comment),
@@ -34,7 +34,7 @@ const AddComment = ({ asin }) => {
         setComment({
           comment: '',
           rate: 1,
-          elementId: null,
+          elementId:1,
         });
       } else {
         throw new Error('Qualcosa è andato storto');
