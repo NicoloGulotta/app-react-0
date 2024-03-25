@@ -25,7 +25,7 @@ const AddComment = ({ asin }) => {
           body: JSON.stringify(comment),
           headers: {
             'Content-type': 'application/json',
-            Authorization: '',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWZjMDA5NTYzYTljNjAwMTk0YWU5MTQiLCJpYXQiOjE3MTEwMTQwMzcsImV4cCI6MTcxMjIyMzYzN30.CsIhyLYLHizhq1I4mPI5xYUWfAmoropFwqqjJCejh3o',
           },
         }
       )

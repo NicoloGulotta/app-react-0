@@ -1,0 +1,11 @@
+.card {
+  width: 200px;
+  height: auto;
+  background-color: rgb(20, 20, 20);
+  transition: all 0.3s ease-in-out;
+}
+.card:hover {
+  transform: scale(1, 1);
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
