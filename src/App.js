@@ -4,7 +4,8 @@ import './App.css';
 import MyNav from './components/MyNav';
 import MyFooter from './components/MyFooter';
 import AllTheBooks from './components/AllTheBooks';
-import { Container } from 'react-bootstrap';
+import CommentArea from './components/CommentArea';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,7 +14,16 @@ function App() {
     <>
       <MyNav setSearchQuery={setSearchQuery} />
       <Container>
-        <AllTheBooks searchQuery={searchQuery} />
+        <Row className="g-2 mt-1">
+          <Col xs={6} md={6} xl={8} >
+            <AllTheBooks searchQuery={searchQuery} />
+          </Col>
+          <Col xs={6} md={4} xl={4} className="d-flex justify-content-center align-items-end h-100"  style={{ position: 'sticky', top: '40%' }} >
+            <div>
+              <CommentArea />
+            </div>
+          </Col>
+        </Row>
       </Container>
       <MyFooter />
     </>

@@ -4,9 +4,13 @@ import AddComment from "./AddComment";
 
 const CommentArea = ({ asin }) => {
   const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getComments = async () => {
+      setLoading(true);
+      setError(null);
       try {
         let response = await fetch(
           "https://striveschool-api.herokuapp.com/api/comments/" + asin,
@@ -17,17 +21,18 @@ const CommentArea = ({ asin }) => {
             },
           }
         );
-        console.log(response);
         if (response.ok) {
           let comments = await response.json();
           setComments(comments);
         } else {
-          console.log("error");
+          setError('Si è verificato un errore durante il recupero dei commenti.');
         }
       } catch (error) {
-        console.log(error);
-      }
+        setLoading(false);
+        setError('Si è verificato un errore durante il recupero dei commenti.');
+      } 
     };
+
     if (asin) {
       getComments();
     }
@@ -36,7 +41,13 @@ const CommentArea = ({ asin }) => {
   return (
     <div className="text-center">
       <AddComment asin={asin} />
-      <CommentList commentsToShow={comments} />
+      {loading ? (
+        <p>Caricamento in corso...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <CommentList commentsToShow={comments} />
+      )}
     </div>
   );
 };
