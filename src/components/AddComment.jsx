@@ -1,48 +1,49 @@
-import { useEffect, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { useEffect, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 
 const AddComment = ({ asin }) => {
   const [comment, setComment] = useState({
-    comment: '',
+    comment: "",
     rate: 1,
     elementId: null,
-  })
+  });
 
   useEffect(() => {
     setComment((c) => ({
       ...c,
       elementId: asin,
-    }))
-  }, [asin])
+    }));
+  }, [asin]);
 
   const sendComment = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       let response = await fetch(
-        'https://striveschool-api.herokuapp.com/api/comments',
+        "https://striveschool-api.herokuapp.com/api/comments",
         {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify(comment),
           headers: {
-            'Content-type': 'application/json',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWZjMDA5NTYzYTljNjAwMTk0YWU5MTQiLCJpYXQiOjE3MTEwMTQwMzcsImV4cCI6MTcxMjIyMzYzN30.CsIhyLYLHizhq1I4mPI5xYUWfAmoropFwqqjJCejh3o',
+            "Content-type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWZjNGM3MjYzYTljNjAwMTk0YWU5NzIiLCJpYXQiOjE3MTEwMzM0NTgsImV4cCI6MTcxMjI0MzA1OH0.fuL0ugBP3eHihQ4x3c9IH_DCbgQDOuUBEBAKPyU5fsE",
           },
         }
-      )
+      );
       if (response.ok) {
-        alert('Recensione inviata!')
+        alert("Recensione inviata!");
         setComment({
-          comment: '',
+          comment: "",
           rate: 1,
           elementId: null,
-        })
+        });
       } else {
-        throw new Error('Qualcosa è andato storto')
+        throw new Error("Qualcosa è andato storto");
       }
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-  }
+  };
 
   return (
     <div className="my-3">
@@ -85,7 +86,7 @@ const AddComment = ({ asin }) => {
         </Button>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default AddComment
+export default AddComment;

@@ -1,36 +1,45 @@
-// MyNav.js
-import React from "react";
-import { Navbar, Nav, Container, Form } from "react-bootstrap";
+import { Navbar, Nav, Container, Form } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
-const MyNav = ({ setSearchQuery }) => {
+const MyNav = ({ searchQuery, setSearchQuery }) => {
   return (
     <Navbar
       expand="lg"
-      className="bg-body-tertiary mb-3 "
+      className="bg-body-tertiary mb-3"
       bg="dark"
       data-bs-theme="dark"
-      style={{ position: "sticky", top: "0%", zIndex: "999" }}
     >
       <Container fluid>
-        <Navbar.Brand href="#">EpiBooks</Navbar.Brand>
+        <Link to="/">
+          <Navbar.Brand>EpiBooks</Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#">Home</Nav.Link>
-            <Nav.Link href="#">About</Nav.Link>
-            <Nav.Link href="#">Browse</Nav.Link>
+            <Link to="/">
+              <div className="nav-link">Home</div>
+            </Link>
+            <Link to="/about">
+              <div className="nav-link">About</div>
+            </Link>
+            <Link to="/browse">
+              <div className="nav-link">Browse</div>
+            </Link>
           </Nav>
-          <Form.Group>
-            <Form.Control
-              type="search"
-              placeholder="Cerca un libro"
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </Form.Group>
+          <Nav className="ms-auto">
+            <Form.Group>
+              <Form.Control
+                type="search"
+                placeholder="Cerca un libro"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </Form.Group>
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
-};
+  )
+}
 
-export default MyNav;
+export default MyNav

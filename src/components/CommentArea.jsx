@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import CommentList from "./CommentList";
 import AddComment from "./AddComment";
+import Loading from "./Loading";
 
 const CommentArea = ({ asin }) => {
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getComments = async () => {
-      setLoading(true);
-      setError(null);
+      setIsLoading(true);
       try {
         let response = await fetch(
           "https://striveschool-api.herokuapp.com/api/comments/" + asin,
@@ -21,18 +20,20 @@ const CommentArea = ({ asin }) => {
             },
           }
         );
+        console.log(response);
         if (response.ok) {
           let comments = await response.json();
           setComments(comments);
+          setIsLoading(false);
         } else {
-          setError('Si è verificato un errore durante il recupero dei commenti.');
+          console.log("error");
+          setIsLoading(false);
         }
       } catch (error) {
-        setLoading(false);
-        setError('Si è verificato un errore durante il recupero dei commenti.');
-      } 
+        console.log(error);
+        setIsLoading(false);
+      }
     };
-
     if (asin) {
       getComments();
     }
@@ -40,14 +41,9 @@ const CommentArea = ({ asin }) => {
 
   return (
     <div className="text-center">
+      {isLoading && <Loading />}
       <AddComment asin={asin} />
-      {loading ? (
-        <p>Caricamento in corso...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <CommentList commentsToShow={comments} />
-      )}
+      <CommentList commentsToShow={comments} />
     </div>
   );
 };

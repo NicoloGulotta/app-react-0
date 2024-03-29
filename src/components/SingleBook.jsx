@@ -1,28 +1,28 @@
-import { useState } from 'react'
-import { Card } from 'react-bootstrap'
-// import CommentArea from './CommentArea'; // Importa il componente CommentArea
+import { Button, Card } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
-import './SingleBook.css';
-
-const SingleBook = ({ book }) => {
-  const [selected, setSelected] = useState(false)
+const SingleBook = ({ setSelected, selected, book }) => {
+  const navigate = useNavigate()
 
   return (
     <>
       <Card
-        onClick={() => setSelected(!selected)}
-        style={{ border: selected ? '5px solid red' : 'none', height: '480px' }}
+        onClick={() => setSelected(book.asin)}
+        style={{
+          border: selected === book.asin ? '3px solid red' : 'none',
+        }}
       >
-        <Card.Img 
-          variant="top" 
-          src={book.img}
-          style={{ objectFit: 'cover' }}
-        />
-        <Card.Body>
+        <Card.Img variant="top" src={book.img} />
+        <Card.Body className='bg-dark'>
           <Card.Title style={{ color: 'white' }}>{book.title}</Card.Title>
+          <Button
+            className=" mt-2"
+            onClick={() => navigate(`/details/${book.asin}`)}
+          >
+          DETTAGLI
+          </Button>
         </Card.Body>
       </Card>
-      {/* {selected && <CommentArea asin={book.asin} />} Renderizza CommentArea solo se selected è true */}
     </>
   )
 }

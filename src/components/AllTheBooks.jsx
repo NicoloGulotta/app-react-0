@@ -1,13 +1,12 @@
-import React from "react";
-import { Row, Col } from "react-bootstrap";
-import fantasy from "../data/fantasy.json";
-import SingleBook from "./SingleBook";
-import { useState } from "react";
+import { Col, Row } from 'react-bootstrap'
+import fantasy from '../data/fantasy.json'
+import SingleBook from './SingleBook'
 import CommentArea from './CommentArea'
+import { useState } from 'react'
 
 const AllTheBooks = ({ searchQuery }) => {
-  const [selected, setSelected] = useState(false);
-  
+  const [selected, setSelected] = useState(false)
+
   return (
     <Row>
       <Col md={8}>
@@ -34,4 +33,4 @@ const AllTheBooks = ({ searchQuery }) => {
   )
 }
 
-export default AllTheBooks;
+export default AllTheBooks
