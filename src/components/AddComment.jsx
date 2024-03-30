@@ -46,7 +46,7 @@ const AddComment = ({ asin }) => {
   };
 
   return (
-    <div className="my-3">
+    <div className="m-3">
       <Form onSubmit={sendComment}>
         <Form.Group className="mb-2">
           <Form.Label>Recensione</Form.Label>

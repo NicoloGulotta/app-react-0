@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import CommentArea from './components/CommentArea';
 
-test('renders learn react link', () => {
+test('renders', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  const MyNav = screen.getByTestId("Navbar");
+  expect(MyNav).toBeInTheDocument();
+
+  const CommentArea = screen.getByTestId("Comment");
+  expect(CommentArea).toBeInTheDocument();
 });

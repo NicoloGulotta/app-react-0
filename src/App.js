@@ -16,7 +16,7 @@ function App() {
       <MyNav searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <Container>
         <Routes>
-          <Route path="/" element={<AllTheBooks searchQuery={searchQuery} />} />
+          <Route path="/" element={<AllTheBooks searchQuery={searchQuery} isDetailsSection={false} />} />
           <Route path="/details/:asin" element={<BookDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

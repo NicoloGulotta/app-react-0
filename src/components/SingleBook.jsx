@@ -10,6 +10,8 @@ const SingleBook = ({ setSelected, selected, book }) => {
         onClick={() => setSelected(book.asin)}
         style={{
           border: selected === book.asin ? '3px solid red' : 'none',
+          width: "200px",
+          height: "500px"
         }}
       >
         <Card.Img variant="top" src={book.img} />
@@ -19,7 +21,7 @@ const SingleBook = ({ setSelected, selected, book }) => {
             className=" mt-2"
             onClick={() => navigate(`/details/${book.asin}`)}
           >
-          DETTAGLI
+            DETTAGLI
           </Button>
         </Card.Body>
       </Card>

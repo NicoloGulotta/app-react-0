@@ -6,6 +6,7 @@ import Loading from "./Loading";
 const CommentArea = ({ asin }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getComments = async () => {
@@ -20,17 +21,16 @@ const CommentArea = ({ asin }) => {
             },
           }
         );
-        console.log(response);
         if (response.ok) {
           let comments = await response.json();
           setComments(comments);
           setIsLoading(false);
         } else {
-          console.log("error");
+          setError("Errore nella ricezione dei commenti.");
           setIsLoading(false);
         }
       } catch (error) {
-        console.log(error);
+        setError("Si è verificato un errore durante il recupero dei commenti.");
         setIsLoading(false);
       }
     };
@@ -40,12 +40,14 @@ const CommentArea = ({ asin }) => {
   }, [asin]);
 
   return (
-    <div className="text-center">
+    <div className="text-center" data-testid="Comment">
+
       {isLoading && <Loading />}
+      {error && <p>{error}</p>}
       <AddComment asin={asin} />
+      Commenti
       <CommentList commentsToShow={comments} />
     </div>
   );
 };
-
-export default CommentArea;
+export default CommentArea
