@@ -10,4 +10,8 @@ test('renders', () => {
 
   const CommentArea = screen.getByTestId("Comment");
   expect(CommentArea).toBeInTheDocument();
+
+  const allTheBookCards = screen.getAllByTestId('book-card')
+  expect(allTheBookCards).toHaveLength(150)
 });
+
